@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = 14
+targetCompatibility = 14
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClassName = 'cpusim.Main'
+}
