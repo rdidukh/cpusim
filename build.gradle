@@ -10,6 +10,14 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+}
+
 application {
     mainClassName = 'cpusim.Main'
 }
