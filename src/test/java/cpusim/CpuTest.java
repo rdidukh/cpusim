@@ -14,6 +14,9 @@ class CpuTest {
     Cpu cpu = new Cpu(memory);
 
     assertEquals(0, cpu.getIp());
+    assertEquals(0, cpu.getRegA());
+    assertFalse(cpu.getFlagZero());
+    assertFalse(cpu.getFlagNegative());
     assertFalse(cpu.isHalted());
   }
 
@@ -24,5 +27,32 @@ class CpuTest {
 
     cpu.executeNextInstruction();
     assertTrue(cpu.isHalted());
+  }
+
+  @Test
+  void staInstruction() {
+    Memory memory = new Memory(new int[]{0x01, 0x75, 0x01, 0x00, 0x01, -1});
+    Cpu cpu = new Cpu(memory);
+
+    cpu.executeNextInstruction();
+    assertEquals(2, cpu.getIp());
+    assertEquals(0x75, cpu.getRegA());
+    assertFalse(cpu.getFlagZero());
+    assertFalse(cpu.getFlagNegative());
+    assertFalse(cpu.isHalted());
+
+    cpu.executeNextInstruction();
+    assertEquals(4, cpu.getIp());
+    assertEquals(0x0, cpu.getRegA());
+    assertTrue(cpu.getFlagZero());
+    assertFalse(cpu.getFlagNegative());
+    assertFalse(cpu.isHalted());
+
+    cpu.executeNextInstruction();
+    assertEquals(6, cpu.getIp());
+    assertEquals(-1, cpu.getRegA());
+    assertFalse(cpu.getFlagZero());
+    assertTrue(cpu.getFlagNegative());
+    assertFalse(cpu.isHalted());
   }
 }
