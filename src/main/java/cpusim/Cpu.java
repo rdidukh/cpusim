@@ -71,4 +71,12 @@ class Cpu {
   boolean isHalted() {
     return halted;
   }
+
+  void reset() {
+    ip = 0;
+    regA = 0;
+    flagZero = false;
+    flagNegative = false;
+    halted = false;
+  }
 }

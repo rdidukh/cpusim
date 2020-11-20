@@ -20,4 +20,11 @@ class Memory {
     }
     return data[address];
   }
+
+  void write(int address, int value) {
+    if (address < 0 || address >= data.length) {
+      return;
+    }
+    data[address] = (byte)value;
+  }
 }
