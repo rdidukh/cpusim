@@ -21,6 +21,30 @@ class CpuTest {
   }
 
   @Test
+  void reset() {
+    Memory memory = new Memory(new int[]{0x01, 0x75});
+    Cpu cpu = new Cpu(memory);
+    cpu.executeNextInstruction();
+    cpu.reset();
+    assertEquals(0, cpu.getIp());
+    assertEquals(0, cpu.getRegA());
+    assertFalse(cpu.getFlagZero());
+    assertFalse(cpu.getFlagNegative());
+    assertFalse(cpu.isHalted());
+
+    memory.write(0, 0x01);
+    memory.write(1, -10);
+    cpu.executeNextInstruction();
+    cpu.reset();
+    assertFalse(cpu.getFlagNegative());
+
+    memory.write(0, 0);
+    cpu.executeNextInstruction();
+    cpu.reset();
+    assertFalse(cpu.isHalted());
+  }
+
+  @Test
   void haltInstruction() {
     Memory memory = new Memory(new int[]{0x00});
     Cpu cpu = new Cpu(memory);
